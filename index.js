@@ -8,7 +8,7 @@ const parseImapAccountString = require('./lib/helpers/parse-imap-account-string'
 
 const findEmails = require('./lib/find-emails');
 
-module.exports = function(config, callback) {
+module.exports = async (config, callback) => {
 	// console.log('index() config:', config);
 
 	// Note: "$" signs in password should be escaped as "\$"
@@ -43,5 +43,5 @@ module.exports = function(config, callback) {
 
 	args.log.info(`Downloading attachments for "${args.username}" account to "${args.directory}" folder...`);
 
-	findEmails(args, callback);
+	await findEmails(args, callback);
 };
