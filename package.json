@@ -6,6 +6,7 @@
     "download-email-attachments": "./bin/download-email-attachments.js"
   },
   "scripts": {
+    "start": "node ./bin/download-email-attachments",
     "test": "standard && npm run test-node",
     "test-node": "mocha tests/**/test.*.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
@@ -30,10 +31,10 @@
   "homepage": "https://github.com/eHealthAfrica/download-email-attachments",
   "devDependencies": {
     "chai": "1.10.0",
-    "mocha": "2.1.0",
-    "semantic-release": "6.0.3",
+    "mocha": "^6.2.0",
+    "semantic-release": "^15.13.24",
     "sinon": "1.12.2",
-    "standard": "5.3.1"
+    "standard": "^14.3.0"
   },
   "dependencies": {
     "async": "1.5.0",
@@ -41,9 +42,9 @@
     "lodash.filter": "3.1.1",
     "lodash.once": "3.0.1",
     "mailparser": "0.5.3",
-    "minimist": "1.1.0",
+    "minimist": "1.2.0",
     "mkdirp": "0.5.1",
-    "moment": "2.10.6",
+    "moment": "^2.24.0",
     "string-template": "0.2.0",
     "verbalize": "0.1.2"
   },

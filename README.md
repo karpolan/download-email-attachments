@@ -10,23 +10,41 @@ a command line tool.
 
 ## Command Line Interface
 
+Note: `$` signs in password and email should be escaped as `\$`
+
 ```
 # install download-email-attachments globally
 npm install -g download-email-attachments
 
-# download all attachments of joe@example.com (password: secret) since beginning of 2015-01-12
-download-email-attachments "joe@example.com":secret@imap-server.com:123 \
+# download all attachments of joe@example.com (password: secret) since beginning of 2019-08-31
+node ./bin/download-email-attachments "joe@example.com":secret@imap-server.com:123 \
   --directory ./files \
   --filename-template "{day}-{filename}" \
   --filename-filter ".xlsx?$" \
   --timeout 3000 \
-  --since 2015-01-12
+  --since 2019-08-31
+
 ```
 
-## Using as module
+## Command to run as sub-script
+
+Note: `$` signs in password and email should be escaped as `\$`
+
+```
+# download all attachments of joe@example.com (password: secret) since beginning of 2019-08-31
+node ./bin/download-email-attachments "joe@example.com":secret@imap-server.com:123 \
+  --directory ./files \
+  --filename-template "{day}-{filename}" \
+  --filename-filter ".xlsx?$" \
+  --timeout 3000 \
+  --since 2019-08-31
+
+```
+
+## Using as JavaScript module
 
 ```js
-var onEnd = function (result) {
+const onEnd = function (result) {
   if (result.error) {
     console.log(result.error)
     return
@@ -35,7 +53,7 @@ var onEnd = function (result) {
   console.log(result.latestTime)
 }
 
-var downloadEmailAttachments = require('download-email-attachments');
+const downloadEmailAttachments = require('download-email-attachments');
 downloadEmailAttachments({
   invalidChars: /[^A-Z]/g, //Regex of Characters that are invalid and will be replaced by X
   account: '"joe@example.com":secret@imap-server.com:123', // all options and params besides account are optional
@@ -43,8 +61,8 @@ downloadEmailAttachments({
   filenameTemplate: '{day}-{filename}',
   filenameFilter: /.xlsx?$/,
   timeout: 3000,
-  log: {warn: console.warn, debug: console.info, error, console.error, info: console.info },
-  since: '2015-01-12',
+  log: {warn: console.warn, debug: console.info, error: console.error, info: console.info },
+  since: '2018-08-31',
   lastSyncIds: ['234', '234', '5345'] // ids already dowloaded and ignored, helpful because since is only supporting dates without time
   attachmentHandler: function (attachmentData, callback, errorCB) {
     console.log(attachmentData)
@@ -55,7 +73,7 @@ downloadEmailAttachments({
 
 ## Options
 
-You have to pass an imap account with password, the format is:
+You have to pass an imap account with password. The format is:
 
 ```
 username:password@host:port
@@ -71,9 +89,12 @@ username:password@host:port
   Optional, defaults to `993`
 
 
+Note: `$` signs in password and email should be escaped as `\$`
+
+
 ### `--directory` / `directory`
 
-**Optional**. Defaults to `./`
+**Optional**. Defaults to `./attachments`
 
 Directory where attachments shall be downloaded to.
 
@@ -88,7 +109,7 @@ create subfolders. The following placeholders are available
 - `{filename}`, e.g. `data.xls`
 - `{basename}`, e.g. `data`
 - `{extension}`, e.g. `xls`
-- `{day}`, e.g. `2015-01-01`
+- `{day}`, e.g. `2019-08-31`
 - `{recipientAddress}`, e.g. `reciepient@example.com`
 - `{senderAddress}`, e.g. `sender@example.com`
 - `{id}`, unique content ID, e.g. `c361f45d-98b6-9b18-96ac-f66aee2cb760`
